@@ -17,9 +17,11 @@ The project is centered on the following questions:
 1. How are marathon finishers distributed across performance bands from recreational to competitive and near-elite levels?
 2. How do age and gender relate to finish-time distributions and performance-band membership?
 3. Which races show higher proportions of competitive finishers, such as sub-3 or sub-4 runners?
-4. If supplementary data is used, how do fixed performance bands compare with Boston qualifying standards across age and gender groups?
+4. If supplementary data is used later, how do fixed performance bands compare with Boston qualifying standards across age and gender groups?
 
 The expected output is a reproducible exploratory analysis with clear static visualizations. Predictive modeling is optional and is not the core objective of the current project direction.
+
+The raw primary dataset archive has been downloaded into `data/raw/`. See `data/raw/README.md` for file inventory, source links, and extraction commands. The Boston Cutoff Time Tracker dataset is kept as a proposal option, but it is not stored locally in this repository at this stage because of its size.
 
 ## Data Sources
 
@@ -33,14 +35,14 @@ The expected output is a reproducible exploratory analysis with clear static vis
 - Relevant fields: gender, age, finish time, and race-level information.
 - Planned use: Main dataset for finish-time distributions, demographic comparisons, performance bands, and race-level performance profiles.
 
-### Optional Supplementary Dataset
+### Optional Future Dataset
 
 **Boston Cutoff Time Tracker Dataset**
 
 - Source: <https://runningwithrock.com/boston-cutoff-time-dataset/>
 - Description: Marathon results, race information, and Boston qualifying standards used for Boston cutoff analysis.
-- Planned use: Optional comparison between fixed performance bands, such as sub-3 and sub-4, and Boston qualifying standards by age and gender.
-- Note: This dataset is supplementary and may not be used in the final analysis if the primary dataset is sufficient.
+- Planned use if added later: Optional comparison between fixed performance bands, such as sub-3 and sub-4, and Boston qualifying standards by age and gender.
+- Repository status: Not downloaded or tracked in the repository at this stage because the dataset archive is relatively large.
 
 ## Planned Performance Bands
 
@@ -65,7 +67,7 @@ Possible visualizations include:
 - Age group by performance band heatmaps.
 - Stacked bar charts showing demographic composition by performance band.
 - Race-level scatterplots comparing race size with sub-3 or sub-4 proportions.
-- Optional Boston qualifying margin comparisons if the supplementary dataset is used.
+- Optional Boston qualifying margin comparisons if the supplementary dataset is added later.
 
 ## Team Members
 
@@ -87,11 +89,26 @@ Possible visualizations include:
 │   ├── project-proposal-draft.pdf
 │   ├── project-proposal-last-term.pdf
 │   └── references.bib
+├── data/
+│   └── raw/
+│       ├── 2023-marathon-results/
+│       │   └── 2023-marathon-results.zip
+│       └── README.md
 ├── doc/
 │   └── project-log.md
 ├── project.jpg
 └── README.md
 ```
+
+## Data Setup
+
+The primary raw ZIP archive is stored in `data/raw/`. To prepare the local CSV files for analysis:
+
+```bash
+unzip -o data/raw/2023-marathon-results/2023-marathon-results.zip -d data/raw/2023-marathon-results
+```
+
+Extracted CSV files are ignored by Git and should remain local working files.
 
 ## Proposal
 
@@ -111,5 +128,5 @@ quarto render project-proposal-draft.qmd
 
 - Course-related documents and project notes are stored in `doc/` or `Proposal/`.
 - The current proposal uses the 2023 Marathon Results dataset as the main dataset.
-- The Boston Cutoff Time Tracker dataset is listed as optional supplementary data.
+- The Boston Cutoff Time Tracker dataset remains an optional future data source, but it is not stored locally in this repository.
 - Major project decisions and updates should be recorded in `doc/project-log.md`.

@@ -16,6 +16,11 @@ venv/
 *.tex
 
 # Local data and generated outputs
-data/raw/
+data/raw/**
+!data/raw/
+!data/raw/README.md
+!data/raw/*/
+!data/raw/*/*.zip
 data/interim/
+data/processed/
 outputs/
