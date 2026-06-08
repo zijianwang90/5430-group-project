@@ -1,0 +1,21 @@
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Quarto / LaTeX intermediates
+/.quarto/
+*_files/
+*.aux
+*.log
+*.out
+*.toc
+*.tex
+
+# Local data and generated outputs
+data/raw/
+data/interim/
+outputs/

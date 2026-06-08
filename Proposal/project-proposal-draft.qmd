@@ -1,0 +1,86 @@
+---
+title: "From Recreational to Elite: Performance Stratification in Marathon Results"
+author:
+  - "Zijian Wang"
+  - "Yuanyuan Zhang"
+  - "Xiaohan Zhang"
+  - "Yihe Wang"
+format:
+  pdf:
+    documentclass: article
+    geometry: margin=1in
+    fontsize: 11pt
+bibliography: references.bib
+---
+
+## Abstract
+
+Marathon results contain more than a final ranking: they reveal how running performance is distributed across recreational, competitive, and elite groups. This project proposes an exploratory data visualization study of marathon performance stratification using the 2023 Marathon Results dataset from Kaggle as the primary data source. The dataset contains individual results from 641 marathon races in the United States in 2023, including approximately 429,000 runners with variables such as gender, age, finish time, and race-level information [@rock2023marathon]. We will construct performance bands, such as sub-3, sub-4, sub-5, and 5+ hour finishers, and visualize how these groups vary across age, gender, and race contexts. If time permits, the Boston Cutoff Time Tracker dataset will be used as a supplementary source to compare fixed performance bands with Boston qualifying standards [@rock2025boston]. The expected contribution is an exploratory visual analytics workflow that makes the structure of marathon performance easier to interpret than summary statistics alone.
+
+## Problem
+
+Marathon finish times are commonly discussed through individual achievements, such as finishing under three or four hours, or qualifying for the Boston Marathon. However, these thresholds do not describe how performance is distributed across the broader marathon population. A sub-4 finish, for example, may represent a different level of competitiveness depending on a runner's age group, gender, and the type of race in which the result was achieved. Similarly, some races may attract more competitive fields, while others may include a larger proportion of recreational participants.
+
+Prior research has shown that age and sex are associated with endurance running performance, making demographic comparison important when interpreting marathon results [@leyk2007age]. The problem addressed in this project is how to visually explain the structure of marathon performance across a large population of runners. Instead of focusing only on average finish times or elite winners, this project will examine how finishers are distributed from recreational to competitive and near-elite performance groups. The goal is to use data visualization to reveal patterns that are difficult to observe from raw results tables, including demographic differences, race-level variation, and the relationship between fixed finish-time thresholds and competitive standards.
+
+## Intended Contribution
+
+The intended contribution of this project is an exploratory data analysis and visualization workflow for understanding marathon performance stratification. The project will group runners into interpretable performance bands and use visualizations to compare those bands across age, gender, and race contexts. This approach is aligned with the role of visualization in the data science lifecycle because it emphasizes exploration, comparison, pattern recognition, and communication.
+
+The project will include several visualization-based contributions:
+
+- A distributional view of marathon finish times across all runners in the primary dataset.
+- Demographic comparisons showing how age and gender relate to finish-time distributions and performance bands.
+- Race-level comparisons identifying which races have higher proportions of competitive finishers, such as sub-3 or sub-4 runners.
+- An optional Boston qualifying comparison that contrasts fixed performance bands with age- and gender-specific qualifying standards.
+
+The final output will include reproducible code, cleaned sample data or processing instructions, and a set of static and/or interactive visualizations. If feasible, an interactive dashboard will be created to allow users to filter results by gender, age group, race size, and performance band.
+
+## Methodology
+
+### Data Sets
+
+The primary dataset will be the 2023 Marathon Results dataset from Kaggle. This dataset includes individual results from 641 marathon races in the United States in 2023 and contains approximately 429,000 finishers. Key variables include gender, age, finish time in seconds, and race-level information [@rock2023marathon]. These fields directly support the project's focus on performance stratification across demographic groups and race contexts.
+
+The Boston Cutoff Time Tracker dataset may be used as a supplementary dataset if time permits. This dataset contains individual marathon results used for Boston cutoff analysis, along with race information and Boston qualifying standards by age and gender [@rock2025boston]. The supplementary analysis would not replace the main dataset; it would only provide an additional competitive-threshold perspective.
+
+### Tools and Libraries
+
+The project will be implemented primarily in Python. Planned libraries include pandas and NumPy for data cleaning and transformation; matplotlib, seaborn, and/or Plotly for visualization; and Jupyter Notebook or Quarto for reproducible analysis and reporting. If an interactive dashboard is developed, we may use Plotly Dash, Streamlit, or another lightweight web-based visualization tool. The dataset size is manageable on local computing resources, so no distributed computing framework is expected to be required.
+
+### EDA and Visualization Plan
+
+The analysis will begin with data cleaning and validation. Finish times will be converted into consistent units, missing or implausible values will be checked, and age groups will be created. Runners will then be assigned to performance bands, such as elite or near-elite, sub-3, sub-4, sub-5, and 5+ hours. These thresholds may be refined after initial exploration to avoid misleading categories or very small groups.
+
+The exploratory analysis will focus on four main questions:
+
+1. How are marathon finishers distributed across performance bands from recreational to competitive and near-elite levels?
+2. How do age and gender relate to finish-time distributions and performance-band membership?
+3. Which races show higher proportions of competitive finishers, such as sub-3 or sub-4 runners?
+4. If the supplementary Boston dataset is used, how do fixed performance bands compare with Boston qualifying standards across age and gender groups?
+
+Planned visualizations include histograms and density plots for finish-time distributions, boxplots or violin plots for age and gender comparisons, heatmaps for age group by performance band, stacked bar charts for demographic composition, and race-level scatterplots comparing race size with the proportion of competitive finishers. These visualizations will be selected and refined based on clarity, interpretability, and their ability to answer the research questions, following general principles of clear quantitative display design [@few2012show].
+
+## Expected Results
+
+We expect the analysis to show that marathon performance is highly stratified, with a large share of finishers concentrated in recreational and mid-pack performance bands, and a smaller proportion of runners in sub-3 or near-elite groups. We also expect age and gender to be associated with different finish-time distributions and performance-band proportions. Race-level visualizations may show that larger or more competitive races have higher proportions of faster runners, while smaller races may display broader or slower finish-time distributions.
+
+If the Boston Cutoff Time Tracker dataset is used, we expect to show that fixed finish-time bands such as sub-3 or sub-4 do not fully capture competitive status because Boston qualifying standards vary by age and gender. This comparison may help clarify how different definitions of "competitive" marathon performance lead to different interpretations.
+
+The final results may differ from these expectations after data cleaning and exploration. The main expected outcome is not a predictive model, but a clear set of visual findings that explain marathon performance structure across demographic and race contexts.
+
+## Team Responsibilities
+
+This project will be completed by a team of four students.
+
+| Team Member | Responsibilities |
+|---|---|
+| Zijian Wang | Project coordination, background research, problem formulation, proposal/report writing, and coding support. |
+| Yuanyuan Zhang | Exploratory data analysis, visualization design, interpretation of findings, and contribution to the final report. |
+| Xiaohan Zhang | Data ingestion, data cleaning, analysis pipeline development, and methodology/report writing. |
+| Yihe Wang | Code implementation, data processing support, visualization implementation, and testing/reproducibility support. |
+
+## Key References
+
+::: {#refs}
+:::
