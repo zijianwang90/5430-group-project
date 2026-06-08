@@ -9,3 +9,4 @@
 - Added initial bibliography entries for the primary dataset, supplementary dataset, course visualization reference, and an age-related marathon performance study.
 - Moved proposal-related files from `doc/` to `Proposal/` and verified that the Quarto draft renders successfully from the new location.
 - Added the project root `README.md` with the project overview, research questions, data sources, planned visualizations, team responsibilities, repository structure, and proposal rendering instructions.
+- Removed interactive dashboard language from the proposal and README to reflect the current static visualization project scope.

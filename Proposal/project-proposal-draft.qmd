@@ -34,7 +34,7 @@ The project will include several visualization-based contributions:
 - Race-level comparisons identifying which races have higher proportions of competitive finishers, such as sub-3 or sub-4 runners.
 - An optional Boston qualifying comparison that contrasts fixed performance bands with age- and gender-specific qualifying standards.
 
-The final output will include reproducible code, cleaned sample data or processing instructions, and a set of static and/or interactive visualizations. If feasible, an interactive dashboard will be created to allow users to filter results by gender, age group, race size, and performance band.
+The final output will include reproducible code, cleaned sample data or processing instructions, and a set of static visualizations designed to support clear comparison across gender, age group, race size, and performance band.
 
 ## Methodology
 
@@ -46,7 +46,7 @@ The Boston Cutoff Time Tracker dataset may be used as a supplementary dataset if
 
 ### Tools and Libraries
 
-The project will be implemented primarily in Python. Planned libraries include pandas and NumPy for data cleaning and transformation; matplotlib, seaborn, and/or Plotly for visualization; and Jupyter Notebook or Quarto for reproducible analysis and reporting. If an interactive dashboard is developed, we may use Plotly Dash, Streamlit, or another lightweight web-based visualization tool. The dataset size is manageable on local computing resources, so no distributed computing framework is expected to be required.
+The project will be implemented primarily in Python. Planned libraries include pandas and NumPy for data cleaning and transformation; matplotlib, seaborn, and/or Plotly for visualization; and Jupyter Notebook or Quarto for reproducible analysis and reporting. The dataset size is manageable on local computing resources, so no distributed computing framework is expected to be required.
 
 ### EDA and Visualization Plan
 

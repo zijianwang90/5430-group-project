@@ -19,7 +19,7 @@ The project is centered on the following questions:
 3. Which races show higher proportions of competitive finishers, such as sub-3 or sub-4 runners?
 4. If supplementary data is used, how do fixed performance bands compare with Boston qualifying standards across age and gender groups?
 
-The expected output is a reproducible exploratory analysis with clear static and/or interactive visualizations. Predictive modeling is optional and is not the core objective of the current project direction.
+The expected output is a reproducible exploratory analysis with clear static visualizations. Predictive modeling is optional and is not the core objective of the current project direction.
 
 ## Data Sources
 
