@@ -58,16 +58,16 @@ The analysis will derive performance groups from finish time. The bands are mutu
 
 These thresholds may be refined after initial EDA to avoid misleading categories or very small groups.
 
-## Planned Visualizations
+## Current Visualizations
 
-Possible visualizations include:
+The first paper draft now includes six reproducible static figure groups:
 
-- Finish-time histograms and density plots.
-- Boxplots or violin plots by age group and gender.
-- Age group by performance band heatmaps.
-- Stacked bar charts showing demographic composition by performance band.
-- Race-level scatterplots comparing race size with sub-3 or sub-4 proportions.
-- Optional Boston qualifying margin comparisons if the supplementary dataset is added later.
+- Overall finish-time distribution and performance-band shares.
+- Median and interquartile finish times by age bracket and gender, paired with a performance-band heatmap.
+- Race counts and performance composition by race-size group.
+- Race size versus sub-4 share, with a descriptive LOESS trend.
+- Race and finisher volume by month.
+- Competitive-race ranking by sub-3 share with a minimum field-size rule.
 
 ## Team Members
 
@@ -86,6 +86,7 @@ Possible visualizations include:
 ├── Proposal/
 │   ├── AMOD5430-Project-Proposal-Template.docx
 │   ├── apa.csl
+│   ├── ieee.csl
 │   ├── project-proposal-draft.qmd
 │   ├── project-proposal-draft.pdf
 │   ├── project-proposal-last-term.pdf
@@ -93,12 +94,23 @@ Possible visualizations include:
 ├── data/
 │   ├── external/
 │   ├── processed/
+│   ├── sample/
+│   │   ├── Races_sample.csv
+│   │   ├── Results_sample.csv
+│   │   └── README.md
 │   └── raw/
 │       ├── 2023-marathon-results/
 │       │   └── 2023-marathon-results.zip
 │       └── README.md
 ├── doc/
 │   └── project-log.md
+├── analysis/
+│   ├── create_sample_data.R
+│   └── generate_visualizations.R
+├── Paper/
+│   ├── figures/
+│   ├── project-paper-draft.qmd
+│   └── project-paper-draft.pdf
 ├── .gitignore
 ├── project.jpg
 └── README.md
@@ -143,9 +155,39 @@ The first formal project paper draft is available in:
 - `Paper/project-paper-draft.qmd`
 - `Paper/project-paper-draft.pdf`
 
+The course grading and delivery requirements are summarized in `doc/final-submission-checklist.md`.
+
+## Reproduce the Analysis
+
+The analysis uses R 4.5 or later and the following packages:
+
+```r
+install.packages(c("cowplot", "dplyr", "ggplot2", "readr", "scales", "tidyr"))
+```
+
+Generate the paper figures from the complete dataset:
+
+```bash
+Rscript analysis/generate_visualizations.R
+```
+
+Test the complete figure pipeline using the included anonymous sample:
+
+```bash
+Rscript analysis/generate_visualizations.R --sample
+```
+
+Sample-mode figures are written to `outputs/sample-figures/` and are for code verification only. Render the paper after generating the full figures:
+
+```bash
+cd Paper
+quarto render project-paper-draft.qmd
+```
+
 ## Project Notes
 
 - Course-related documents and project notes are stored in `doc/` or `Proposal/`.
 - The current proposal uses the 2023 Marathon Results dataset as the main dataset.
 - The Boston Cutoff Time Tracker dataset remains an optional future data source, but it is not stored locally in this repository.
 - Major project decisions and updates should be recorded in `doc/project-log.md`.
+- The final code ZIP must include the source code, run instructions, and the anonymous sample under `data/sample/`.
