@@ -136,6 +136,13 @@ The first formal project outline, based on the instructor's proposal feedback, i
 
 - `doc/formal-project-outline.md`
 
+## Project Paper Draft
+
+The first formal project paper draft is available in:
+
+- `Paper/project-paper-draft.qmd`
+- `Paper/project-paper-draft.pdf`
+
 ## Project Notes
 
 - Course-related documents and project notes are stored in `doc/` or `Proposal/`.

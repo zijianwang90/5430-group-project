@@ -59,3 +59,4 @@
 - Removed interactive dashboard language from the proposal and README to reflect the current static visualization project scope.
 - Downloaded the primary 2023 Marathon Results dataset into `data/raw/`, added raw data documentation, and configured Git to track the source ZIP archive while ignoring extracted CSV files.
 - Kept the Boston Cutoff Time Tracker dataset as an optional proposal data source, but did not store it locally in the repository because of file size; it can be added later if the analysis requires it.
+- Created the first formal project paper draft in `Paper/project-paper-draft.qmd`, using concise language and an IEEE conference-style Quarto PDF format.
