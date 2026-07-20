@@ -130,6 +130,12 @@ cd Proposal
 quarto render project-proposal-draft.qmd
 ```
 
+## Formal Project Outline
+
+The first formal project outline, based on the instructor's proposal feedback, is available in:
+
+- `doc/formal-project-outline.md`
+
 ## Project Notes
 
 - Course-related documents and project notes are stored in `doc/` or `Proposal/`.
