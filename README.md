@@ -60,7 +60,7 @@ These thresholds may be refined after initial EDA to avoid misleading categories
 
 ## Current Visualizations
 
-The first paper draft now includes six reproducible static figure groups:
+The final paper includes six reproducible static figure groups:
 
 - Overall finish-time distribution and performance-band shares.
 - Median and interquartile finish times by age bracket and gender, paired with a performance-band heatmap.
@@ -109,8 +109,8 @@ The first paper draft now includes six reproducible static figure groups:
 │   └── generate_visualizations.R
 ├── Paper/
 │   ├── figures/
-│   ├── project-paper-draft.qmd
-│   └── project-paper-draft.pdf
+│   ├── project-paper-final.qmd
+│   └── project-paper-final.pdf
 ├── .gitignore
 ├── project.jpg
 └── README.md
@@ -148,12 +148,12 @@ The first formal project outline, based on the instructor's proposal feedback, i
 
 - `doc/formal-project-outline.md`
 
-## Project Paper Draft
+## Final Project Paper
 
-The first formal project paper draft is available in:
+The final project paper is available in:
 
-- `Paper/project-paper-draft.qmd`
-- `Paper/project-paper-draft.pdf`
+- `Paper/project-paper-final.qmd`
+- `Paper/project-paper-final.pdf`
 
 The course grading and delivery requirements are summarized in `doc/final-submission-checklist.md`.
 
@@ -181,7 +181,7 @@ Sample-mode figures are written to `outputs/sample-figures/` and are for code ve
 
 ```bash
 cd Paper
-quarto render project-paper-draft.qmd
+quarto render project-paper-final.qmd
 ```
 
 ## Project Notes

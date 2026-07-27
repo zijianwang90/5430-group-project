@@ -2,13 +2,13 @@
 
 ## 2026-07-20
 
-### First visualization-complete paper draft
+### Final visualization-complete paper
 
 - Reviewed the project rubric and final paper/code submission requirements.
 - Replaced planned-result placeholders with a completed exploratory analysis and interpretation of actual findings.
 - Added six reproducible static figure groups covering finish-time distribution, demographic stratification, race size, race-level sub-4 share, race calendar, and competitive-race ranking.
 - Added a data-quality table and robustness checks for analysis unit, race-size association, ranking thresholds, and small data-quality groups.
-- Expanded Previous Work to 10 sources and linked the literature to demographic patterns, pacing, fixed thresholds, and large-scale marathon participation.
+- Expanded Previous Work to 9 sources and linked the literature to demographic patterns, pacing, fixed thresholds, and large-scale marathon participation.
 - Kept the paper in IEEE conference format and verified the final seven-page PDF visually.
 - Added `analysis/generate_visualizations.R` for full and sample figure generation.
 - Added `analysis/create_sample_data.R` and an anonymous sample under `data/sample/` so the code package can be tested without the full dataset.
@@ -73,4 +73,4 @@
 - Removed interactive dashboard language from the proposal and README to reflect the current static visualization project scope.
 - Downloaded the primary 2023 Marathon Results dataset into `data/raw/`, added raw data documentation, and configured Git to track the source ZIP archive while ignoring extracted CSV files.
 - Kept the Boston Cutoff Time Tracker dataset as an optional proposal data source, but did not store it locally in the repository because of file size; it can be added later if the analysis requires it.
-- Created the first formal project paper draft in `Paper/project-paper-draft.qmd`, using concise language and an IEEE conference-style Quarto PDF format.
+- Created the formal project paper in `Paper/project-paper-final.qmd`, using concise language and an IEEE conference-style Quarto PDF format.

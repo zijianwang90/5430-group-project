@@ -1,0 +1,206 @@
+---
+title: "Visualizing Performance Stratification in 2023 U.S. Marathon Results"
+author:
+  - "Zijian Wang"
+  - "Yuanyuan Zhang"
+  - "Xiaohan Zhang"
+  - "Yihe Wang"
+abstract: |
+  Marathon results are often summarized by a single average or familiar finish-time thresholds such as sub-3 and sub-4 hours. This study uses static visualizations to analyze 429,266 finisher records from 641 U.S. marathons held in 2023. We compare finish-time distributions and performance-band shares by age, gender, race size, month, and individual race. The median finish time was 4.46 hours; 4.5% of finishers completed a marathon in under 3 hours and 33.9% finished in under 4 hours. Performance-band shares differed across age and race-size groups, and races of similar size often had different sub-4 shares. October and November accounted for 44.2% of the finishers listed in race metadata. Together, these views reveal differences among runner groups and races that a single average or finish-time threshold would miss.
+number-sections: true
+format:
+  pdf:
+    documentclass: IEEEtran
+    classoption: conference
+    fontsize: 10pt
+    keep-tex: true
+header-includes:
+  - \usepackage{booktabs}
+  - \usepackage{dblfloatfix}
+  - \AtBeginEnvironment{abstract}{\microtypesetup{expansion=false}}
+bibliography: ../Proposal/references.bib
+csl: ../Proposal/ieee.csl
+---
+
+# Introduction
+
+Marathon results are often summarized by finish time, but the share finishing under a threshold such as 4 hours differs across age and gender groups and across races. Large and small events can also have different proportions of finishers in the five performance bands. An overall average does not show these demographic and race-level differences.
+
+This project studies *performance stratification*: how finishers are distributed across five finish-time bands, from under 2:45 to 5 hours or more. It presents runner-level and race-level visualizations of the same dataset. The runner-level charts show the overall finish-time distribution and compare medians, interquartile ranges, and performance-band shares by age and gender. The race-level charts compare race-size groups, monthly race and finisher totals, and the sub-3 and sub-4 shares of individual races.
+
+The study answers four questions:
+
+1. How are marathon finishers distributed across interpretable performance bands?
+2. How do finish-time distributions and performance-band shares vary by age and gender?
+3. How does race size relate to the performance composition of an event?
+4. Which months contain the most races and finishers, and which races have the highest shares of sub-3 finishers?
+
+The project is exploratory rather than predictive. It does not rank individual runners or claim that race characteristics directly cause runners to perform better or worse. Instead, it uses visual comparison to reveal patterns that are difficult to see in raw result tables.
+
+# Previous Work
+
+Research on endurance running shows why demographic context matters. In a sample of 300,757 non-duplicate marathon and half-marathon finishers, Leyk et al. found no significant age-related performance loss before age 50 and relatively modest declines among runners aged 50--69 [@leyk2007age]. Studies of the New York City Marathon found that participation by older runners and women increased over time, while the demographic composition and performance patterns of the field also changed [@lepers2012older; @vitti2020nyc]. A Berlin Marathon study modeled age of peak performance nonlinearly and found different peak ages for women and men [@nikolaidis2019berlin]. Among elite marathoners, Hunter et al. found similar peak ages for men and women, while the performance gap varied across events, years, and finishing place [@hunter2011sex]. These findings support comparing complete distributions across age groups instead of treating age as a minor control variable.
+
+Previous studies also show that finish time cannot be explained by age and gender alone. Smyth's analysis of 1.7 million recreational-runner records found strong associations between start pace, late-race slowdown, and overall finish time [@smyth2018fast]. A longitudinal study of 40 runners who maintained sub-3 performance across five consecutive calendar decades found a lower age-related decline than population-level comparisons might imply, although the cohort included 39 men and only one woman [@lepers2021sub3]. Therefore, we use the fixed performance bands only to summarize the data. They do not provide a complete measure of a runner's ability.
+
+The project also follows Few's guidance for clear and efficient communication through tables and graphs [@few2012show]. We apply this guidance by relying mainly on position and length, using the same performance-band thresholds wherever those bands are compared, limiting color to meaningful categories, and adding direct labels when space allows. Histograms show the overall finish-time distribution; bar charts compare counts and proportions; point-and-range plots show medians and interquartile ranges; heatmaps compare performance-band composition across age and gender groups; scatterplots preserve differences among races; and the ranked lollipop chart highlights races with the largest sub-3 shares.
+
+Previous studies usually focus on demographic or performance patterns within individual races, or on pacing across a limited group of events. This project extends that work by examining the 2023 U.S. marathon data at three levels: the full dataset, age and gender groups, and individual races. Using the same performance bands at each level allows us to compare general patterns and identify races or groups that differ from them.
+
+# Dataset
+
+## Data Source and Structure
+
+The primary source is version 5 of the 2023 Marathon Results dataset, published on Kaggle in 2024 [@rock2023marathon]. `Results.csv` contains 429,266 runner-level records with `Race`, `Year`, `Gender`, `Age`, `Finish`, and `Age Bracket`. `Races.csv` contains metadata for 641 races, including `Date` and `Finishers`. We joined the files by race name and year. All finish-time calculations use the runner-level `Finish` field, recorded in seconds.
+
+The analysis is cross-sectional. It compares races and finishers within 2023 and cannot establish long-term trends. Runner names are identifiers in the source data but are not used in the analysis or visualizations.
+
+\begin{table}[!t]
+\caption{Dataset and quality summary}
+\label{tab:data-summary}
+\centering
+\begin{tabular}{lr}
+\toprule
+Measure & Count \\
+\midrule
+Runner-level result records & 429,266 \\
+Race metadata records & 641 \\
+Finishers listed in race metadata & 429,982 \\
+Implausible or unavailable ages & 8,779 \\
+Gender X or U records & 392 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+## Data Quality
+
+Table \ref{tab:data-summary} shows the main data checks. Race metadata lists 716 more finishers than appear in the result file, a difference of 0.17%. We therefore use result rows for runner-level percentages and use the metadata total only in the calendar view. Ages below 10, including the source value of -1, are treated as unavailable in age-specific analysis. The small X and U gender categories are retained in overall totals but are not shown as separate demographic distributions because their combined count is only 392. Finish times are not removed as outliers; the focused histogram changes only the visible x-axis range, not the band counts.
+
+# Methodology
+
+## Processing and Derived Variables
+
+The analysis was implemented in R 4.5.2 with `readr`, `dplyr`, `tidyr`, `ggplot2`, `scales`, and `cowplot`. The reproducible script loads both CSV files, converts finish time from seconds to hours, parses race dates, joins race metadata, computes summaries, and exports vector PDF figures.
+
+We created five mutually exclusive performance bands:
+
+- under 2:45, the fastest performance band;
+- 2:45-2:59, completing the sub-3 group;
+- 3:00-3:59;
+- 4:00-4:59; and
+- 5:00 or slower.
+
+These thresholds are familiar and easy to read, but they are descriptive rather than official ability categories. They do not adjust for age, gender, course difficulty, or weather.
+
+Race size is divided into four groups: small (fewer than 100 finishers), medium (100-499), large (500-1,999), and major (2,000 or more). For each race, we calculate the median finish time and the shares finishing under 3 and under 4 hours. Race-level scatterplots require at least 25 records, while the sub-3 race ranking requires at least 500. These thresholds reduce unstable percentages from very small fields.
+
+## Visual Design
+
+Wherever performance bands are encoded by color, the figures use the same band order and colors. The heatmap uses a single light-to-dark scale to represent percentages. Point positions and bar lengths show the main numerical comparisons, so the charts do not rely on color alone. Counts and percentages are labeled directly when space allows. Related charts are aligned in multi-panel figures so they can be compared directly.
+
+The plots are descriptive. The LOESS line in the race-size scatterplot summarizes the visible relationship, but it does not show that race size causes runners to perform better or worse. Likewise, race rankings describe the participants recorded in this dataset; they do not measure course difficulty or event quality.
+
+# Results
+
+## Overall Performance Distribution
+
+Figure \ref{fig:overall} shows a right-skewed finish-time distribution. The median is 4.46 hours, and the largest single band is 4:00-4:59 with 144,271 finishers (33.6%). A similar 139,308 finishers (32.5%) took 5 hours or more. Faster results are much less common: 19,357 runners (4.5%) finished under 3 hours, including 5,449 (1.3%) under 2:45. Overall, 33.9% finished under 4 hours and 67.5% finished under 5 hours. The histogram displays 2 to 8 hours for readability, while the bar chart includes all records.
+
+\begin{figure*}[!tb]
+\centering
+\includegraphics[width=\textwidth]{figures/fig1-overall-performance.pdf}
+\caption{Overall performance distribution. Dashed lines mark the fixed band thresholds; band counts include all 429,266 result records.}
+\label{fig:overall}
+\end{figure*}
+
+## Age and Gender Stratification
+
+Figure \ref{fig:demographic} compares medians, interquartile ranges, and performance-band shares for women and men with known age brackets. Finish times generally become slower in older groups, but the chart also shows the spread within each group. Among runners under 35, the median is about 4.58 hours for women and 4.16 hours for men. The difference narrows at older ages. The middle 50% of finish times covers a wider range in the oldest groups, which also contain fewer runners and should be interpreted cautiously.
+
+The heatmap adds information that a median cannot show. For example, 34% of women under 35 and 23% of men under 35 are in the 5-hours-or-more band. By ages 65-69, these shares rise to 67% and 52%, respectively. The 75-79 and 80+ cells should be interpreted cautiously because their sample sizes are much smaller.
+
+\begin{figure*}[!tb]
+\centering
+\includegraphics[width=\textwidth]{figures/fig2-demographic-stratification.pdf}
+\caption{Demographic stratification. Panel A shows medians and interquartile ranges. Panel B shows the within-age-group share in each performance band. Unknown ages and the small X/U groups are excluded from this comparison.}
+\label{fig:demographic}
+\end{figure*}
+
+## Race Size and Performance Composition
+
+The dataset contains many more small events than major marathons. Figure \ref{fig:race-size} shows 314 small races, 210 medium races, 88 large races, and 29 major races. The share of finishers taking 5 hours or more decreases from 53.0% in small races to 31.3% in medium races and 24.8% in large races, then rises to 34.1% in major races. Large races have the highest combined share of finishers between 3 and 5 hours. Compared with large races, major races have higher shares of both sub-3 finishers and finishers taking 5 hours or more.
+
+This pattern shows that race size alone does not determine the shares finishing under 3 or under 4 hours. Major events include finishers across all five time bands, while percentages in small races are more sensitive to a small number of results.
+
+\begin{figure*}[!tb]
+\centering
+\includegraphics[width=\textwidth]{figures/fig3-race-size-context.pdf}
+\caption{Race-size context. Panel A counts events in each field-size group. Panel B compares the within-group composition of finish-time bands.}
+\label{fig:race-size}
+\end{figure*}
+
+Figure \ref{fig:race-sub4} compares race size with the sub-4 share among 576 races with at least 25 records. The sub-4 share generally rises from very small to medium-sized races and then levels off among larger races. However, races of similar size still have very different sub-4 shares. Among the three labeled major races, Boston has a sub-4 share of 72.5%, compared with about 43% for Chicago and 28% for New York City. These differences show that race size alone does not account for the variation in sub-4 shares among events.
+
+\begin{figure*}[!tb]
+\centering
+\includegraphics[width=\textwidth]{figures/fig4-race-size-sub4.pdf}
+\caption{Recorded race size versus the share of sub-4 finishers for races with at least 25 results. The log x-axis keeps small and major events visible together.}
+\label{fig:race-sub4}
+\end{figure*}
+
+## Race Calendar
+
+Race count and participant volume are not distributed evenly through the year. Figure \ref{fig:calendar} shows that October has the most races (97) and the most listed finishers (107,590). November has only 53 races but 82,342 finishers because it includes several major events. In contrast, September has 82 races but only 14,693 finishers. October and November together account for 44.2% of the finishers listed in race metadata. The calendar is therefore not only seasonal; a few large autumn races strongly shape the dataset.
+
+\begin{figure*}[!tb]
+\centering
+\includegraphics[width=\textwidth]{figures/fig5-race-calendar.pdf}
+\caption{The 2023 race calendar. Panel A counts races, while Panel B sums the finishers listed in race metadata.}
+\label{fig:calendar}
+\end{figure*}
+
+## Races with High Sub-3 Shares
+
+Figure \ref{fig:competitive} ranks races with at least 500 records by sub-3 share. California International Marathon (15.9%) and Boston Marathon (15.7%) lead the ranking, followed by Light at the End of the Tunnel Marathon (11.1%) and Sugarloaf Marathon (10.7%). The 12-race ranking includes both events with more than 7,000 records and events with fewer than 1,000, so a larger race does not always have a higher sub-3 share.
+
+Using percentages avoids ranking large races simply because they contain more runners. Requiring at least 500 records also prevents a race with only a few finishers from reaching the top because of one fast result.
+
+\begin{figure*}[!tb]
+\centering
+\includegraphics[width=\textwidth]{figures/fig6-competitive-races.pdf}
+\caption{The 12 highest sub-3 shares among races with at least 500 recorded finishers. Labels show the percentage and denominator.}
+\label{fig:competitive}
+\end{figure*}
+
+## Robustness and Interpretation Checks
+
+We performed three checks to determine whether the main results depend on weighting or minimum-size choices. First, the sub-4 share is 33.9% when all runners are combined. In contrast, the median sub-4 share among the 576 races with at least 25 records is 26.1% when each race is treated equally. Large races contribute more records to the overall 33.9% value, so the two percentages answer different questions: 33.9% describes all runners combined, while 26.1% is the median across the 576 race-level shares.
+
+Second, among the 576 races with at least 25 records, the Spearman correlation between recorded race size and sub-4 share is 0.53. This moderate positive correlation is consistent with the general upward pattern in Fig. \ref{fig:race-sub4}: larger races tend to have higher sub-4 shares. However, sub-4 shares vary widely among races of similar size, and some of the largest races have relatively low shares. Therefore, race size is associated with sub-4 share but does not determine a race's sub-4 share.
+
+Third, we repeated the sub-3 ranking using minimum race sizes of 250, 500, and 1,000 recorded finishers. After applying these requirements, 195, 117, and 67 races, respectively, were included in the ranking. Seven of the top 10 races under the 500-runner rule remain in the top 10 under the 1,000-runner rule. California International Marathon and Boston Marathon remain the top two under all three cutoffs. Lower positions change because smaller races with high sub-3 shares enter or leave the ranking when the minimum race size changes. We therefore treat the first two positions as stable in this dataset, while the remaining order depends on the selected minimum race size.
+
+Additional data-quality checks describe which records are omitted from specific views and how the two source files differ. Implausible or unavailable ages make up 2.0% of result rows and are excluded only from age-specific views. X and U together make up 0.09% and remain in overall totals. The 0.17% difference between result rows and listed race finishers is too small to account for the 44.2% of listed finishers in October and November, although it means the totals from the two files cannot match exactly.
+
+# Discussion
+
+The figures answer the research questions at the overall, demographic, and race levels. Overall, 66.1% of finishers took at least 4 hours, while 4.5% finished in under 3 hours. Median finish times and shares in the five performance bands differed across age and gender groups. Across races, performance-band shares differed by race-size group, races of similar size often had different sub-4 shares, and October and November accounted for 44.2% of the finishers listed in race metadata.
+
+A distinctive feature of this project is that race metadata is used as data rather than only to name each event. Race dates show that 44.2% of listed finishers appear in October and November. Race sizes and race-level shares show that major races contain both faster and slower finishers, while some smaller races also have high sub-3 shares. These comparisons extend the analysis beyond finish time, age, and gender.
+
+# Limitations
+
+The dataset covers only U.S. marathons in 2023, so the findings cannot establish long-term trends. It does not include weather, elevation, course profile, split times, training history, or entry rules. These missing variables may explain some race-level differences.
+
+Fixed performance bands are easy to understand but do not adjust for age and gender. Race-level percentages are also descriptive and can remain unstable even after minimum-size filters. The race metadata reports 429,982 finishers, while the runner-level file contains 429,266 records, a difference of 716 (0.17%). Therefore, monthly totals based on race metadata cannot exactly match the runner-level totals, but this small difference does not affect the main patterns. Future work could use age grading, validate race metadata from event sources, and compare multiple years.
+
+# Conclusions
+
+This project visualized 429,266 results from 641 U.S. marathons in 2023. The median finish time was 4.46 hours; 4.5% of finishers ran under 3 hours and 33.9% ran under 4 hours. Older age groups had progressively larger shares of finishers taking 5 hours or more. The 5-hours-or-more share was 53.0% in small races, 24.8% in large races, and 34.1% in major races. October and November accounted for 44.2% of the finishers listed in race metadata. California International Marathon and Boston had the highest sub-3 shares among races with at least 500 records.
+
+These findings show that no single threshold, average, or race size summarizes the differences in marathon results. Viewing the data by finish-time distribution, age and gender, race month, and individual race reveals differences that one overall average or cutoff would miss.
+
+# References {.unnumbered}
+
+::: {#refs}
+:::
