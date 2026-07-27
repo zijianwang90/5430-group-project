@@ -4,9 +4,9 @@
 
 This repository contains the course project materials for **AMOD 5430: Data Visualization**.
 
-Working title:
+Project title:
 
-**From Recreational to Elite: Performance Stratification in Marathon Results**
+**Visualizing Performance Stratification in 2023 U.S. Marathon Results**
 
 The project studies how marathon performance is distributed across recreational, competitive, and elite or near-elite finisher groups. The main goal is to use exploratory data analysis and data visualization to explain how finish-time performance bands vary across age, gender, and race contexts.
 
