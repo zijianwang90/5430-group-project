@@ -33,13 +33,13 @@ This checklist summarizes the course rubric and the final paper/code submission 
 
 ## Current Repository Status
 
-- IEEE Quarto paper: `Paper/project-paper-draft.qmd`
-- Rendered PDF: `Paper/project-paper-draft.pdf`
+- IEEE Quarto paper: `Paper/project-paper-final.qmd`
+- Rendered PDF: `Paper/project-paper-final.pdf`
 - Reproducible visualization code: `analysis/generate_visualizations.R`
 - Sample-data generator: `analysis/create_sample_data.R`
 - Anonymous test data: `data/sample/`
 - Setup and run instructions: `README.md`
-- Current paper: 7 pages including references, 6 figure groups, 1 table, and 10 references.
+- Current paper: 7 pages including references, 6 figure groups, 1 table, and 9 references.
 
 ## Before Final Submission
 
